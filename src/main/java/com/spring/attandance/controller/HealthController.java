@@ -1,7 +1,5 @@
-package com.spring.attandance;
+package com.spring.attandance.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +9,7 @@ public class HealthController {
     @GetMapping(value = "/health")
     public String health() {
 
-        return "Hello";
+        return "Hello World";
     }
 
 }
