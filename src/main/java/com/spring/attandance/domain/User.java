@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "NAME_MOBILE_UNIQUE", columnNames = {"USER_NAME", "MOBILE"})})
-public class User {
+public class User extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
@@ -18,7 +18,7 @@ public class User {
     private String mobile;
 
     /** Entity Update **/
-    public void updateUser(String name, String mobile) {
+    public void update(String name, String mobile) {
         this.name = name;
         this.mobile = mobile;
     }

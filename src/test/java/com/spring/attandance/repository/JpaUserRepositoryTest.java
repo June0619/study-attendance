@@ -10,8 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -37,6 +39,7 @@ class JpaUserRepositoryTest {
 
         // then
         // 1.Expect givenUser == findUser
-        Assertions.assertThat(givenUser).isSameAs(findUser);
+        assertThat(findUser).isSameAs(givenUser);
+        assertThat(findUser.getCreatedAt().getDayOfMonth()).isEqualTo(LocalDateTime.now().getDayOfMonth());
     }
 }
