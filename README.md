@@ -14,4 +14,4 @@
       1. 페이지네이션
 
 ## UML
-![image](https://user-images.githubusercontent.com/54339266/169934596-d544e1eb-3048-4a34-96e8-cef35c83adce.png)
+![image](https://user-images.githubusercontent.com/54339266/169937533-7b6a35b5-9dc5-4d4e-bdd9-197232fadb79.png)
