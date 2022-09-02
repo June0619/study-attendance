@@ -12,8 +12,10 @@ public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
+
     @Column(nullable = false, name = "MEMBER_NAME", length = 10)
     private String name;
+
     @Column(nullable = true, name = "MOBILE", length = 12)
     private String mobile;
 
