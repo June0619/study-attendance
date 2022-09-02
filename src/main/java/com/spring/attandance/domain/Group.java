@@ -9,6 +9,7 @@ import javax.persistence.Id;
 public class Group {
 
     @Id @GeneratedValue
+    @Column(name = "GROUP_ID")
     private long id;
 
     @Column(nullable = false, name = "GROUP_NAME")
