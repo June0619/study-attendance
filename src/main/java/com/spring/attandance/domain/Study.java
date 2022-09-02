@@ -12,7 +12,7 @@ public class Study {
     @Id @GeneratedValue
     private Long id;
     @ManyToOne
-    private User user;
+    private Member member;
 
     private LocalDate openDate;
     private String startFrom;
