@@ -20,6 +20,9 @@ public class Member extends BaseEntity {
     @Column(nullable = true, name = "MOBILE", length = 12)
     private String mobile;
 
+    @Column(nullable = true, name = "EMAIL", length = 50)
+    private String email;
+
     /** Entity Update **/
     public void update(String name, String mobile) {
         this.name = name;

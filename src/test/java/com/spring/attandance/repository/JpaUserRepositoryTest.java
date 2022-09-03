@@ -33,7 +33,7 @@ class JpaUserRepositoryTest {
         memberRepository.save(givenMember);
 
         // when
-        Member findMember = memberRepository.findOne(givenMember.getId()).get();
+        Member findMember = memberRepository.findById(givenMember.getId()).get();
 
         // then
         // 1.Expect givenUser == findUser

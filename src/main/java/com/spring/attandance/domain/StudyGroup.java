@@ -1,12 +1,11 @@
 package com.spring.attandance.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
-public class Group {
+public class StudyGroup {
 
     @Id @GeneratedValue
     @Column(name = "GROUP_ID")
@@ -14,6 +13,12 @@ public class Group {
 
     @Column(nullable = false, name = "GROUP_NAME")
     private String name;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member master;
+
+
 
     
 }

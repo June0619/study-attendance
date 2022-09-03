@@ -18,7 +18,7 @@ public class GroupMember {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GROUP_ID")
-    private Group group;
+    private StudyGroup studyGroup;
 
     private LocalDateTime joinDateTime;
 
