@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-class JpaUserRepositoryTest {
+class JpaMemberRepositoryTest {
 
     @Autowired
     MemberRepository memberRepository;
