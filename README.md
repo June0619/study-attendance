@@ -3,7 +3,7 @@
 간단한 출석 체크 API 서버 구현
 
 ## UML
-![image](https://user-images.githubusercontent.com/54339266/169937533-7b6a35b5-9dc5-4d4e-bdd9-197232fadb79.png)
+![ERD_SVG](https://user-images.githubusercontent.com/54339266/188259314-313d1c8d-cbb0-4db6-a321-850773610c72.svg)
 
 ## Summary
 1. 스터디 그룹 / 스터디 / 회원 단위
