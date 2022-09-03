@@ -1,10 +1,18 @@
 package com.spring.attandance.domain;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = PROTECTED)
 public class StudyGroup {
 
     @Id @GeneratedValue
@@ -18,7 +26,11 @@ public class StudyGroup {
     @JoinColumn(name = "MEMBER_ID")
     private Member master;
 
-
+    @Builder
+    public StudyGroup(String name, Member master) {
+        this.name = name;
+        this.master = master;
+    }
 
     
 }
