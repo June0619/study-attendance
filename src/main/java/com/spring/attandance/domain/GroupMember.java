@@ -1,5 +1,7 @@
 package com.spring.attandance.domain;
 
+import com.spring.attandance.domain.enums.GroupRole;
+
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +21,9 @@ public class GroupMember {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GROUP_ID")
     private StudyGroup studyGroup;
+
+    @Enumerated(EnumType.STRING)
+    private GroupRole role;
 
     private LocalDateTime joinDateTime;
 

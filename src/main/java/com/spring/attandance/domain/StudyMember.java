@@ -1,5 +1,7 @@
 package com.spring.attandance.domain;
 
+import com.spring.attandance.domain.enums.CancelYN;
+
 import javax.persistence.*;
 
 import java.time.LocalDateTime;

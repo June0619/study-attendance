@@ -1,4 +1,4 @@
-package com.spring.attandance.domain;
+package com.spring.attandance.domain.enums;
 
 public enum GroupRole {
     MASTER, ADMIN, MEMBER
