@@ -29,7 +29,9 @@ public class QuerydslBasicTest {
     @BeforeEach
     void before() {
         queryFactory = new JPAQueryFactory(em);
-        Member memberA = new Member("memberA", null);
+        Member memberA = Member.builder()
+                .name("memberA")
+                .build();
         em.persist(memberA);
     }
 

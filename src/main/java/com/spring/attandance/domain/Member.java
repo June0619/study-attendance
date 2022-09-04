@@ -31,9 +31,10 @@ public class Member extends BaseEntity {
 
     /** Builder **/
     @Builder
-    public Member(String name, String mobile) {
+    public Member(String name, String mobile, String email) {
         this.name = name;
         this.mobile = mobile;
+        this.email = email;
     }
 
 }

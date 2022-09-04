@@ -29,7 +29,11 @@ public class JpaStudyGroupRepositoryTest {
     @DisplayName("[통합] 스터디 그룹 저장")
     void save() {
         // given
-        Member testUser = new Member("test_user", "01012345678");
+        Member testUser = Member.builder()
+                .name("test_user")
+                .mobile("01012345678")
+                .build();
+
         em.persist(testUser);
 
         StudyGroup studyGroup = new StudyGroup("TEST_GROUP", testUser);
