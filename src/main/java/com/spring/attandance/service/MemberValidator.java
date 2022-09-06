@@ -8,12 +8,8 @@ public interface MemberValidator {
     void duplicateCheck(Member member);
 
     // 회원 오픈 예정 스터디 검사
-    static void openStudyCheck(Member member) {
-        // TODO
-    }
+    void openStudyCheck(Long id);
 
-    // 회원 스터디 소유 검사
-    static void studyOwnerCheck(Member member) {
-        // TODO
-    }
+    // 스터디 그룹 소유자 검사
+    void studyGroupOwnerCheck(Long id);
 }
