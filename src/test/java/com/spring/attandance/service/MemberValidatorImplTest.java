@@ -32,7 +32,7 @@ class MemberValidatorImplTest {
                 .mobile("01056781234")
                 .build();
 
-        doReturn(Optional.empty()).when(repository).findOne(cond);
+        doReturn(Optional.empty()).when(repository).searchMember(cond);
 
         Member member = Member.builder()
                 .mobile("01056781234")
@@ -55,7 +55,7 @@ class MemberValidatorImplTest {
                 .mobile("01012345678")
                 .build();
 
-        doReturn(Optional.of(givenMember)).when(repository).findOne(cond);
+        doReturn(Optional.of(givenMember)).when(repository).searchMember(cond);
 
         //when
         Member member = Member.builder()

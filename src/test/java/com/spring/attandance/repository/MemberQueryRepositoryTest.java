@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -21,7 +22,7 @@ class MemberQueryRepositoryTest {
     @Autowired MemberQueryRepository repository;
     @Autowired EntityManager em;
 
-    @DisplayName("[통합] QueryRepository findOne 메서드 테스트")
+    @DisplayName("[통합] QueryRepository.findOne")
     @Test
     void findOne() {
         //given
@@ -30,7 +31,7 @@ class MemberQueryRepositoryTest {
 
         //when
         MemberSearchCondition condition = new MemberSearchCondition(null, "01012345678", null);
-        Optional<Member> findByMobile = repository.findOne(condition);
+        Optional<Member> findByMobile = repository.searchMember(condition);
 
         //then
         assertEquals(findByMobile.get(), member);

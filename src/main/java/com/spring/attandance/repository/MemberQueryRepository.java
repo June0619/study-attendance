@@ -18,7 +18,7 @@ public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public Optional<Member> findOne (MemberSearchCondition condition) {
+    public Optional<Member> searchMember(MemberSearchCondition condition) {
         return Optional.ofNullable(queryFactory
                 .selectFrom(QMember.member)
                 .where(
