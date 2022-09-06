@@ -66,4 +66,42 @@ class MemberValidatorImplTest {
         assertThrows(IllegalStateException.class, () -> validator.duplicateCheck(member));
     }
 
+    //TODO: 이하 테스트 작성
+
+    @Test
+    @DisplayName("[단위] 소유 스터디 체크 - 성공")
+    void studyOwn() {
+
+    }
+
+    @Test
+    @DisplayName("[단위] 소유 스터디 체크 - 실패")
+    void notStudyOwn() {
+        //given
+
+        //when
+
+        //then
+    }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 소유 체크 - 성공")
+    void studyGroupOwn () {
+        //given
+
+        //when
+
+        //then
+    }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 소유 체크 - 실패")
+    void notStudyGroupOwn() {
+        //given
+
+        //when
+
+        //then
+
+    }
 }
