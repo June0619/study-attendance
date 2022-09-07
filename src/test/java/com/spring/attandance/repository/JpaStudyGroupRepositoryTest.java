@@ -6,17 +6,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@Commit
 public class JpaStudyGroupRepositoryTest {
 
     @Autowired
@@ -44,5 +43,25 @@ public class JpaStudyGroupRepositoryTest {
 
         // then
         assertThat(findStudyGroup.get()).isEqualTo(studyGroup);
+    }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 소유자 아이디로 조회")
+    void findByMasterId() {
+        // given
+        Member testUser = Member.builder()
+                .name("test_user")
+                .build();
+        StudyGroup studyGroup = new StudyGroup("TEST_GROUP", testUser);
+
+        em.persist(testUser);
+        em.persist(studyGroup);
+
+        // when
+        List<StudyGroup> result = studyGroupRepository.findByMasterId(testUser.getId());
+
+        // then
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result).extracting("name").containsExactly("TEST_GROUP");
     }
 }

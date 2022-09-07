@@ -1,5 +1,6 @@
 package com.spring.attandance.domain;
 
+import com.spring.attandance.controller.dto.member.MemberUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,9 +25,13 @@ public class Member extends BaseEntity {
     private String email;
 
     /** Entity Update **/
-    public void update(String name, String mobile) {
+    public void update(String name, String email) {
         this.name = name;
-        this.mobile = mobile;
+        this.email = email;
+    }
+
+    public void update(MemberUpdateDTO dto) {
+        this.update(dto.getName(), dto.getEmail());
     }
 
     /** Builder **/

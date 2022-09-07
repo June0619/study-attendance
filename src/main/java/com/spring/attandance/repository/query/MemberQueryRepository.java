@@ -1,4 +1,4 @@
-package com.spring.attandance.repository;
+package com.spring.attandance.repository.query;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,7 +18,7 @@ public class MemberQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public Optional<Member> findOne (MemberSearchCondition condition) {
+    public Optional<Member> searchMember(MemberSearchCondition condition) {
         return Optional.ofNullable(queryFactory
                 .selectFrom(QMember.member)
                 .where(
