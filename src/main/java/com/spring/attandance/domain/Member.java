@@ -26,8 +26,8 @@ public class Member extends BaseEntity {
 
     /** Entity Update **/
     public void update(String name, String email) {
-        this.name = name;
-        this.email = email;
+        if(name != null) this.name = name;
+        if(email != null) this.email = email;
     }
 
     public void update(MemberUpdateDTO dto) {
