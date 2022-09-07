@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.function.Supplier;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -19,7 +21,6 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member) {
-
         //1. 회원 중복 Validation
         memberValidator.duplicateCheck(member);
 
@@ -29,23 +30,27 @@ public class MemberService {
     }
 
     @Transactional
-    public Long updateMember(MemberUpdateDTO dto) {
+    public Long join(Supplier<Member> memberSupplier) {
+        return join(memberSupplier.get());
+    }
 
+    @Transactional
+    public void updateMember(MemberUpdateDTO dto) {
         //1. 회원 정보 조회
         Member member = memberRepository.findById(dto.getId()).get();
 
         //2. 회원 정보 수정
         member.update(dto);
-        return member.getId();
     }
 
     @Transactional
     public void deleteMember(Long id) {
-
         //1. 스터디 그룹 소유 validation
         memberValidator.studyGroupOwnerCheck(id);
+
         //2. 오픈 예정 스터디 validation
         memberValidator.openStudyCheck(id);
+
         //3. 회원 삭제
         memberRepository.deleteById(id);
     }
