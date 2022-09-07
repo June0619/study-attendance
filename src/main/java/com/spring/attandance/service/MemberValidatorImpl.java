@@ -22,6 +22,7 @@ public class MemberValidatorImpl implements MemberValidator {
     private final StudyGroupRepository studyGroupRepository;
     private final StudyQueryRepository studyQueryRepository;
 
+    @Override
     public void duplicateCheck(Member member) {
 
         MemberSearchCondition condition = MemberSearchCondition.builder()
