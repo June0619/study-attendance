@@ -46,6 +46,8 @@ public class StudyQueryRepository {
             return null;
         } else if (passedFlag == PASSED) {
             return study.endTime.before(LocalDateTime.now());
+        } else if (passedFlag == NOT_PASSED) {
+            return study.endTime.after(LocalDateTime.now());
         } else if (passedFlag == ON_GOING) {
             return study.startTime.before(LocalDateTime.now())
                     .and(study.endTime.after(LocalDateTime.now()));
