@@ -1,8 +1,9 @@
-package com.spring.attandance.repository;
+package com.spring.attandance.repository.query;
 
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.Study;
 import com.spring.attandance.domain.cond.StudySearchCondition;
+import com.spring.attandance.repository.query.StudyQueryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,14 @@ import java.util.List;
 
 import static com.spring.attandance.domain.enums.PassedStudy.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
 class StudyQueryRepositoryTest {
 
     @Autowired EntityManager em;
-    @Autowired StudyQueryRepository studyQueryRepository;
+    @Autowired
+    StudyQueryRepository studyQueryRepository;
 
     @Test
     @DisplayName("[통합] 스터디 검색 - 시간 기준")

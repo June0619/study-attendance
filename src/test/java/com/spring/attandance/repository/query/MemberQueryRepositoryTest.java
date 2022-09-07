@@ -1,7 +1,8 @@
-package com.spring.attandance.repository;
+package com.spring.attandance.repository.query;
 
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
+import com.spring.attandance.repository.query.MemberQueryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class MemberQueryRepositoryTest {
 
-    @Autowired MemberQueryRepository repository;
+    @Autowired
+    MemberQueryRepository repository;
     @Autowired EntityManager em;
 
     @DisplayName("[통합] QueryRepository.findOne")

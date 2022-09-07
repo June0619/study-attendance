@@ -6,9 +6,9 @@ import com.spring.attandance.domain.StudyGroup;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
 import com.spring.attandance.domain.cond.StudySearchCondition;
 import com.spring.attandance.domain.enums.PassedStudy;
-import com.spring.attandance.repository.MemberQueryRepository;
+import com.spring.attandance.repository.query.MemberQueryRepository;
 import com.spring.attandance.repository.StudyGroupRepository;
-import com.spring.attandance.repository.StudyQueryRepository;
+import com.spring.attandance.repository.query.StudyQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

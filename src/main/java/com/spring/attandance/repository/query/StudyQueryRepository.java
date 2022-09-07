@@ -1,4 +1,4 @@
-package com.spring.attandance.repository;
+package com.spring.attandance.repository.query;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

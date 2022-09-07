@@ -2,7 +2,7 @@ package com.spring.attandance.service;
 
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
-import com.spring.attandance.repository.MemberQueryRepository;
+import com.spring.attandance.repository.query.MemberQueryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
