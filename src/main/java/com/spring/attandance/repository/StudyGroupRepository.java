@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StudyGroupRepository extends JpaRepository<StudyGroup, Long> {
     List<StudyGroup> findByMasterId(Long id);
+    int countStudyGroupsByMasterId(Long id);
 }
