@@ -11,5 +11,5 @@ public interface MemberValidator {
     void openStudyCheck(Long id);
 
     // 스터디 그룹 소유자 검사
-    void studyGroupOwnerCheck(Long id);
+    void groupOwnerCheck(Long id);
 }

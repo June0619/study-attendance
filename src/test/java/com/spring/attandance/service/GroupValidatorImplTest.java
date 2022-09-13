@@ -18,7 +18,7 @@ class GroupValidatorImplTest {
     GroupRepository repository;
 
     @InjectMocks
-    StudyGroupValidatorImpl validator;
+    GroupValidatorImpl validator;
 
     @Test
     @DisplayName("[단위] 스터디 그룹 생성 범위 초과 테스트 - 성공")

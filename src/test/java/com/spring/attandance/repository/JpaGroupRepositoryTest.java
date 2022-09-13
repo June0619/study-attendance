@@ -39,10 +39,10 @@ public class JpaGroupRepositoryTest {
 
         // when
         groupRepository.save(group);
-        Optional<Group> findStudyGroup = groupRepository.findById(group.getId());
+        Optional<Group> findGroup = groupRepository.findById(group.getId());
 
         // then
-        assertThat(findStudyGroup.get()).isEqualTo(group);
+        assertThat(findGroup.get()).isEqualTo(group);
     }
 
     @Test

@@ -98,7 +98,7 @@ class MemberValidatorImplTest {
 
     @Test
     @DisplayName("[단위] 소유 스터디 체크 - 실패")
-    void notStudyOpen() {
+    void studyOpen_fail() {
         //given
         List<Study> result = List.of(
                 Study.builder()
@@ -121,7 +121,7 @@ class MemberValidatorImplTest {
 
     @Test
     @DisplayName("[단위] 스터디 그룹 소유 체크 - 성공")
-    void studyGroupOwn () {
+    void groupOwn() {
         //given
         List<Group> result = List.of();
 
@@ -129,12 +129,12 @@ class MemberValidatorImplTest {
         doReturn(result).when(groupRepository).findByMasterId(1L);
 
         //then
-        assertDoesNotThrow(() -> validator.studyGroupOwnerCheck(1L));
+        assertDoesNotThrow(() -> validator.groupOwnerCheck(1L));
     }
 
     @Test
     @DisplayName("[단위] 스터디 그룹 소유 체크 - 실패")
-    void notStudyGroupOwn() {
+    void groupOwn_fail() {
         //given
         List<Group> result = List.of(
                 Group.builder()
@@ -145,6 +145,6 @@ class MemberValidatorImplTest {
         doReturn(result).when(groupRepository).findByMasterId(1L);
 
         //then
-        assertThrows(IllegalStateException.class, () -> validator.studyGroupOwnerCheck(1L));
+        assertThrows(IllegalStateException.class, () -> validator.groupOwnerCheck(1L));
     }
 }

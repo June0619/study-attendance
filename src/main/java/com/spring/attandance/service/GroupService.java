@@ -2,7 +2,7 @@ package com.spring.attandance.service;
 
 import com.spring.attandance.context.MemberThreadLocal;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
-import com.spring.attandance.controller.dto.group.StudyGroupCreateDTO;
+import com.spring.attandance.controller.dto.group.GroupCreateDTO;
 import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.Member;
@@ -18,15 +18,15 @@ import static com.spring.attandance.domain.enums.GroupRole.MASTER;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class StudyGroupService {
+public class GroupService {
 
     private final GroupRepository repository;
-    private final StudyGroupValidator validator;
+    private final GroupValidator validator;
     private final MemberRepository memberRepository;
     private final GroupMemberRepository groupMemberRepository;
 
     @Transactional
-    public Long create(StudyGroupCreateDTO dto) {
+    public Long create(GroupCreateDTO dto) {
 
         LoginMemberDTO loginMember = MemberThreadLocal.get();
 
@@ -47,7 +47,7 @@ public class StudyGroupService {
         //3. 스터디 그룹 생성자 등록
         GroupMember groupMember = GroupMember.builder()
                 .member(loginMemberEntity)
-                .studyGroup(group)
+                .group(group)
                 .role(MASTER)
                 .build();
 

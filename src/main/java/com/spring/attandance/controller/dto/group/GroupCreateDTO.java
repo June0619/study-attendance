@@ -4,7 +4,7 @@ import com.spring.attandance.domain.Group;
 import lombok.Data;
 
 @Data
-public class StudyGroupCreateDTO {
+public class GroupCreateDTO {
 
     private String name;
 

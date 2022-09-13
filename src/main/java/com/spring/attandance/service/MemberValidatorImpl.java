@@ -51,7 +51,7 @@ public class MemberValidatorImpl implements MemberValidator {
     }
 
     @Override
-    public void studyGroupOwnerCheck(Long id) {
+    public void groupOwnerCheck(Long id) {
         List<Group> groupList = groupRepository.findByMasterId(id);
 
         if (groupList.size() > 0) {

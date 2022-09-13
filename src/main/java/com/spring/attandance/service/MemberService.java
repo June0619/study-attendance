@@ -46,7 +46,7 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long id) {
         //1. 스터디 그룹 소유 validation
-        memberValidator.studyGroupOwnerCheck(id);
+        memberValidator.groupOwnerCheck(id);
 
         //2. 오픈 예정 스터디 validation
         memberValidator.openStudyCheck(id);

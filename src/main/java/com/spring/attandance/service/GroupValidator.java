@@ -1,5 +1,5 @@
 package com.spring.attandance.service;
 
-public interface StudyGroupValidator {
+public interface GroupValidator {
     void exceedLimitGroupCount(Long memberId);
 }

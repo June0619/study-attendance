@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class StudyGroupValidatorImpl implements StudyGroupValidator{
+public class GroupValidatorImpl implements GroupValidator {
 
     private final GroupRepository repository;
 
@@ -16,8 +16,8 @@ public class StudyGroupValidatorImpl implements StudyGroupValidator{
      */
     @Override
     public void exceedLimitGroupCount(Long memberId) {
-        long studyGroupCount = repository.countGroupsByMasterId(memberId);
-        if (studyGroupCount >= 3) {
+        long groupCount = repository.countGroupsByMasterId(memberId);
+        if (groupCount >= 3) {
             throw new IllegalStateException("스터디 그룹 생성 제한 초과");
         }
     }
