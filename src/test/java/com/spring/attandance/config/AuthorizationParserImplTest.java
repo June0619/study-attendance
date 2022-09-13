@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -32,17 +33,14 @@ class AuthorizationParserImplTest {
     @Test
     @DisplayName("[통합] parse 성공")
     void parse() {
-
         String authorization = "01012345678";
-        assertDoesNotThrow(() -> authorizationParser.parse(authorization));
+        assertFalse(authorizationParser.parse(authorization).isGuest());
     }
 
     @Test
     @DisplayName("[통합] parse 실패")
     void parse_fail() {
-
-        String authorization = "01012345679";
-        assertThrows(RuntimeException.class, () -> authorizationParser.parse(authorization));
+        assertTrue(authorizationParser.parse(null).isGuest());
     }
 
 }

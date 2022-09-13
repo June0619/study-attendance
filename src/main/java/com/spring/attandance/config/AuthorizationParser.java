@@ -1,8 +1,10 @@
 package com.spring.attandance.config;
 
-import com.spring.attandance.domain.Member;
+import com.spring.attandance.controller.dto.member.LoginMemberDTO;
+
+import java.util.Optional;
 
 public interface AuthorizationParser {
 
-    Member parse(String authorization);
+    LoginMemberDTO parse(String authorization);
 }
