@@ -1,6 +1,5 @@
 package com.spring.attandance.domain;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class StudyGroup {
+public class Group {
 
     @Id @GeneratedValue
     @Column(name = "GROUP_ID")
@@ -27,8 +26,12 @@ public class StudyGroup {
     private Member master;
 
     @Builder
-    public StudyGroup(String name, Member master) {
+    public Group(String name, Member master) {
         this.name = name;
+        this.master = master;
+    }
+
+    public void changeMaster(Member master) {
         this.master = master;
     }
 

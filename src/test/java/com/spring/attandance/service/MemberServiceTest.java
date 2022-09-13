@@ -2,9 +2,9 @@ package com.spring.attandance.service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.spring.attandance.controller.dto.member.MemberUpdateDTO;
+import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.Study;
-import com.spring.attandance.domain.StudyGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +136,7 @@ class MemberServiceTest {
                 .mobile("01012345678")
                 .build();
 
-        StudyGroup studyGroup = StudyGroup.builder()
+        Group group = Group.builder()
                 .name("스터디그룹")
                 .master(memberA)
                 .build();
@@ -152,7 +152,7 @@ class MemberServiceTest {
         Long memberAId = memberService.join(memberA);
         Long memberBId = memberService.join(memberB);
 
-        em.persist(studyGroup);
+        em.persist(group);
         em.persist(study);
 
         //then

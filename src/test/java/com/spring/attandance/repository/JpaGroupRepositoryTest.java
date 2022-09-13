@@ -1,7 +1,7 @@
 package com.spring.attandance.repository;
 
+import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.Member;
-import com.spring.attandance.domain.StudyGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-public class JpaStudyGroupRepositoryTest {
+public class JpaGroupRepositoryTest {
 
     @Autowired
-    StudyGroupRepository studyGroupRepository;
+    GroupRepository groupRepository;
 
     @Autowired
     EntityManager em;
@@ -35,14 +35,14 @@ public class JpaStudyGroupRepositoryTest {
 
         em.persist(testUser);
 
-        StudyGroup studyGroup = new StudyGroup("TEST_GROUP", testUser);
+        Group group = new Group("TEST_GROUP", testUser);
 
         // when
-        studyGroupRepository.save(studyGroup);
-        Optional<StudyGroup> findStudyGroup = studyGroupRepository.findById(studyGroup.getId());
+        groupRepository.save(group);
+        Optional<Group> findGroup = groupRepository.findById(group.getId());
 
         // then
-        assertThat(findStudyGroup.get()).isEqualTo(studyGroup);
+        assertThat(findGroup.get()).isEqualTo(group);
     }
 
     @Test
@@ -52,13 +52,13 @@ public class JpaStudyGroupRepositoryTest {
         Member testUser = Member.builder()
                 .name("test_user")
                 .build();
-        StudyGroup studyGroup = new StudyGroup("TEST_GROUP", testUser);
+        Group group = new Group("TEST_GROUP", testUser);
 
         em.persist(testUser);
-        em.persist(studyGroup);
+        em.persist(group);
 
         // when
-        List<StudyGroup> result = studyGroupRepository.findByMasterId(testUser.getId());
+        List<Group> result = groupRepository.findByMasterId(testUser.getId());
 
         // then
         assertThat(result.size()).isEqualTo(1);

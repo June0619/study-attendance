@@ -1,18 +1,20 @@
 package com.spring.attandance.domain;
 
 import com.spring.attandance.domain.enums.GroupRole;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
-import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.*;
 
 @Entity
-public class GroupMember {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class GroupMember extends BaseEntity {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -20,11 +22,15 @@ public class GroupMember {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GROUP_ID")
-    private StudyGroup studyGroup;
+    private Group group;
 
     @Enumerated(EnumType.STRING)
     private GroupRole role;
 
-    private LocalDateTime joinDateTime;
-
+    @Builder
+    public GroupMember(Member member, Group group, GroupRole role) {
+        this.member = member;
+        this.group = group;
+        this.role = role;
+    }
 }

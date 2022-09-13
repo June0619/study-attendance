@@ -9,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "NAME_MOBILE_UNIQUE", columnNames = {"MEMBER_NAME", "MOBILE"})})
+@ToString(of = {"id", "name", "mobile", "email"})
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue
