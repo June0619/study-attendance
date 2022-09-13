@@ -1,6 +1,7 @@
 package com.spring.attandance.context;
 
 
+import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.domain.Member;
 
 /***
@@ -8,13 +9,13 @@ import com.spring.attandance.domain.Member;
  */
 public class MemberThreadLocal {
 
-    private static final ThreadLocal<Member> store = new ThreadLocal<>();
+    private static final ThreadLocal<LoginMemberDTO> store = new ThreadLocal<>();
 
-    public static Member getUserContext() {
+    public static LoginMemberDTO getUserContext() {
         return store.get();
     }
 
-    public static void setMemberContext(Member member) {
-        store.set(member);
+    public static void setMemberContext(LoginMemberDTO loginMemberDTO) {
+        store.set(loginMemberDTO);
     }
 }

@@ -1,6 +1,7 @@
 package com.spring.attandance.config;
 
 import com.spring.attandance.context.MemberThreadLocal;
+import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
         //임시 Auth Header => 전화번호
         String authorization = request.getHeader("Authorization");
         Member accessMember = parser.parse(authorization);
-        MemberThreadLocal.setMemberContext(accessMember);
+        MemberThreadLocal.setMemberContext(LoginMemberDTO.of(accessMember));
 
         logger.info("[{}] {} ", accessMember, request.getRequestURI());
 
