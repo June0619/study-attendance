@@ -22,6 +22,6 @@ public class AuthorizationParserImpl implements AuthorizationParser {
         //TODO: JWT 으로 수정
         Optional<Member> loginMember = memberRepository.findMemberByMobile(authorization);
 
-        return loginMember.orElseThrow(() -> new RuntimeException("존재하지 않는 사용자입니다."));
+        return loginMember.orElseThrow(() -> new RuntimeException("로그인이 필요합니다."));
     }
 }
