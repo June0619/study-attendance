@@ -11,7 +11,7 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/studyGroup")
-public class StudyGroupController {
+public class GroupController {
 
     private final StudyGroupService studyGroupService;
 
