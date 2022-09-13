@@ -32,5 +32,9 @@ public class StudyGroup {
         this.master = master;
     }
 
+    public void changeMaster(Member master) {
+        this.master = master;
+    }
+
     
 }

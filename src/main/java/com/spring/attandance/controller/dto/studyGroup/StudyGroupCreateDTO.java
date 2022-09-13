@@ -8,12 +8,10 @@ import lombok.Data;
 public class StudyGroupCreateDTO {
 
     private String name;
-    private Member master;
 
     public StudyGroup toEntity() {
         return StudyGroup.builder()
                 .name(this.name)
-                .master(this.master)
                 .build();
     }
 }

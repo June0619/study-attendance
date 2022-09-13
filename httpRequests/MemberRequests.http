@@ -1,4 +1,4 @@
-GET localhost:8080/api/v1/member?name=member101
+GET localhost:8080/api/v1/member
 Authorization: 01012341200
 
 ###
@@ -25,3 +25,13 @@ Authorization: 01012341200
 ###
 DELETE localhost:8080/api/v1/member/101
 Authorization: 01012341200
+
+###
+POST localhost:8080/api/v1/studyGroup
+Authorization: 01012341205
+content-type: application/json
+
+{
+  "name": "studyGroup1"
+}
+
