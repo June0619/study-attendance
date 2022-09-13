@@ -27,7 +27,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
         //임시 Auth Header => 전화번호
         String authorization = request.getHeader("Authorization");
         LoginMemberDTO loginMember = parser.parse(authorization);
-        MemberThreadLocal.setMemberContext(loginMember);
+        MemberThreadLocal.set(loginMember);
         return true;
     }
 }

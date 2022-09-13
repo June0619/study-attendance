@@ -11,11 +11,11 @@ public class MemberThreadLocal {
 
     private static final ThreadLocal<LoginMemberDTO> store = new ThreadLocal<>();
 
-    public static LoginMemberDTO getUserContext() {
+    public static LoginMemberDTO get() {
         return store.get();
     }
 
-    public static void setMemberContext(LoginMemberDTO loginMemberDTO) {
+    public static void set(LoginMemberDTO loginMemberDTO) {
         store.set(loginMemberDTO);
     }
 }
