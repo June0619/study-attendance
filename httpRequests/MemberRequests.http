@@ -1,20 +1,27 @@
+GET localhost:8080/api/v1/member?name=member101
+Authorization: 01012341200
+
+###
 POST localhost:8080/api/v1/member
 content-type: application/json
+Authorization: 01012341200
 
 {
   "name": "member1",
-  "mobile": "01012345678",
+  "mobile": "01012341300",
   "email": "test@test.co.kr"
 }
 
 ###
 PUT localhost:8080/api/v1/member
 content-type: application/json
+Authorization: 01012341200
 
 {
-  "id": 1,
-  "email": "test@naver.co.kr"
+  "id": 101,
+  "name": "member101"
 }
 
 ###
-DELETE localhost:8080/api/v1/member/1
+DELETE localhost:8080/api/v1/member/101
+Authorization: 01012341200
