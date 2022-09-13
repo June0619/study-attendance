@@ -2,13 +2,13 @@ package com.spring.attandance.service;
 
 import com.spring.attandance.context.MemberThreadLocal;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
-import com.spring.attandance.controller.dto.studyGroup.StudyGroupCreateDTO;
+import com.spring.attandance.controller.dto.group.StudyGroupCreateDTO;
+import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.Member;
-import com.spring.attandance.domain.StudyGroup;
 import com.spring.attandance.repository.GroupMemberRepository;
 import com.spring.attandance.repository.MemberRepository;
-import com.spring.attandance.repository.StudyGroupRepository;
+import com.spring.attandance.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +20,7 @@ import static com.spring.attandance.domain.enums.GroupRole.MASTER;
 @RequiredArgsConstructor
 public class StudyGroupService {
 
-    private final StudyGroupRepository repository;
+    private final GroupRepository repository;
     private final StudyGroupValidator validator;
     private final MemberRepository memberRepository;
     private final GroupMemberRepository groupMemberRepository;
@@ -33,7 +33,7 @@ public class StudyGroupService {
         Member loginMemberEntity = memberRepository.findById(loginMember.getId())
                 .orElseThrow(IllegalStateException::new);
 
-        StudyGroup studyGroup = StudyGroup.builder()
+        Group group = Group.builder()
                 .name(dto.getName())
                 .master(loginMemberEntity)
                 .build();
@@ -42,18 +42,18 @@ public class StudyGroupService {
         validator.exceedLimitGroupCount(loginMember.getId());
 
         //2. 스터디 그룹 생성
-        repository.save(studyGroup);
+        repository.save(group);
 
         //3. 스터디 그룹 생성자 등록
         GroupMember groupMember = GroupMember.builder()
                 .member(loginMemberEntity)
-                .studyGroup(studyGroup)
+                .studyGroup(group)
                 .role(MASTER)
                 .build();
 
         groupMemberRepository.save(groupMember);
 
-        return studyGroup.getId();
+        return group.getId();
     }
 
     public void update() {

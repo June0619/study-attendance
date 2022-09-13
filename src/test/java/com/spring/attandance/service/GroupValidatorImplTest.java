@@ -1,6 +1,6 @@
 package com.spring.attandance.service;
 
-import com.spring.attandance.repository.StudyGroupRepository;
+import com.spring.attandance.repository.GroupRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-class StudyGroupValidatorImplTest {
+class GroupValidatorImplTest {
 
     @Mock
-    StudyGroupRepository repository;
+    GroupRepository repository;
 
     @InjectMocks
     StudyGroupValidatorImpl validator;
@@ -27,7 +27,7 @@ class StudyGroupValidatorImplTest {
         Long memberId = 1L;
 
         //when
-        doReturn(2).when(repository).countStudyGroupsByMasterId(memberId);
+        doReturn(2).when(repository).countGroupsByMasterId(memberId);
 
         //then
         assertDoesNotThrow(() -> validator.exceedLimitGroupCount(memberId));
@@ -40,7 +40,7 @@ class StudyGroupValidatorImplTest {
         Long memberId = 1L;
 
         //when
-        doReturn(3).when(repository).countStudyGroupsByMasterId(memberId);
+        doReturn(3).when(repository).countGroupsByMasterId(memberId);
 
         //then
         assertThrows(IllegalStateException.class, () -> validator.exceedLimitGroupCount(memberId));

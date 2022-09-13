@@ -1,12 +1,12 @@
 package com.spring.attandance.service;
 
+import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.Study;
-import com.spring.attandance.domain.StudyGroup;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
 import com.spring.attandance.domain.cond.StudySearchCondition;
 import com.spring.attandance.domain.enums.PassedStudy;
-import com.spring.attandance.repository.StudyGroupRepository;
+import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.query.MemberQueryRepository;
 import com.spring.attandance.repository.query.StudyQueryRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ class MemberValidatorImplTest {
     @Mock
     MemberQueryRepository memberQueryRepository;
     @Mock
-    StudyGroupRepository groupRepository;
+    GroupRepository groupRepository;
     @Mock
     StudyQueryRepository studyQueryRepository;
     @InjectMocks
@@ -123,7 +123,7 @@ class MemberValidatorImplTest {
     @DisplayName("[단위] 스터디 그룹 소유 체크 - 성공")
     void studyGroupOwn () {
         //given
-        List<StudyGroup> result = List.of();
+        List<Group> result = List.of();
 
         //when
         doReturn(result).when(groupRepository).findByMasterId(1L);
@@ -136,8 +136,8 @@ class MemberValidatorImplTest {
     @DisplayName("[단위] 스터디 그룹 소유 체크 - 실패")
     void notStudyGroupOwn() {
         //given
-        List<StudyGroup> result = List.of(
-                StudyGroup.builder()
+        List<Group> result = List.of(
+                Group.builder()
                         .build()
         );
 

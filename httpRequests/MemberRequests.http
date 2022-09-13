@@ -27,7 +27,7 @@ DELETE localhost:8080/api/v1/member/101
 Authorization: 01012341200
 
 ###
-POST localhost:8080/api/v1/studyGroup
+POST localhost:8080/api/v1/group
 Authorization: 01012341205
 content-type: application/json
 

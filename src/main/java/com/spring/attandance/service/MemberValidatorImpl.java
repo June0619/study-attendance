@@ -1,13 +1,13 @@
 package com.spring.attandance.service;
 
+import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.Study;
-import com.spring.attandance.domain.StudyGroup;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
 import com.spring.attandance.domain.cond.StudySearchCondition;
 import com.spring.attandance.domain.enums.PassedStudy;
 import com.spring.attandance.repository.query.MemberQueryRepository;
-import com.spring.attandance.repository.StudyGroupRepository;
+import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.query.StudyQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import java.util.List;
 public class MemberValidatorImpl implements MemberValidator {
 
     private final MemberQueryRepository memberQueryRepository;
-    private final StudyGroupRepository studyGroupRepository;
+    private final GroupRepository groupRepository;
     private final StudyQueryRepository studyQueryRepository;
 
     @Override
@@ -52,9 +52,9 @@ public class MemberValidatorImpl implements MemberValidator {
 
     @Override
     public void studyGroupOwnerCheck(Long id) {
-        List<StudyGroup> studyGroupList = studyGroupRepository.findByMasterId(id);
+        List<Group> groupList = groupRepository.findByMasterId(id);
 
-        if (studyGroupList.size() > 0) {
+        if (groupList.size() > 0) {
             throw new IllegalStateException("소유 중인 스터디 그룹이 존재합니다.");
         }
     }

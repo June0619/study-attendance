@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import java.time.LocalDateTime;
-
 import static javax.persistence.FetchType.*;
 
 @Entity
@@ -24,15 +22,15 @@ public class GroupMember extends BaseEntity {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "GROUP_ID")
-    private StudyGroup studyGroup;
+    private Group group;
 
     @Enumerated(EnumType.STRING)
     private GroupRole role;
 
     @Builder
-    public GroupMember(Member member, StudyGroup studyGroup, GroupRole role) {
+    public GroupMember(Member member, Group group, GroupRole role) {
         this.member = member;
-        this.studyGroup = studyGroup;
+        this.group = group;
         this.role = role;
     }
 }

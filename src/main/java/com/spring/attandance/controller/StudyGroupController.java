@@ -1,6 +1,6 @@
 package com.spring.attandance.controller;
 
-import com.spring.attandance.controller.dto.studyGroup.StudyGroupCreateDTO;
+import com.spring.attandance.controller.dto.group.StudyGroupCreateDTO;
 import com.spring.attandance.service.StudyGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
