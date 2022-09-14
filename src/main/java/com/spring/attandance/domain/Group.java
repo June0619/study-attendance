@@ -12,6 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+@Table(name = "STUDY_GROUP")
 public class Group {
 
     @Id @GeneratedValue

@@ -9,6 +9,7 @@ import com.spring.attandance.domain.enums.PassedStudy;
 import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.query.MemberQueryRepository;
 import com.spring.attandance.repository.query.StudyQueryRepository;
+import com.spring.attandance.service.validator.MemberValidatorImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -126,7 +127,7 @@ class MemberValidatorImplTest {
         List<Group> result = List.of();
 
         //when
-        doReturn(result).when(groupRepository).findByMasterId(1L);
+        doReturn(0).when(groupRepository).countGroupsByMasterId(1L);
 
         //then
         assertDoesNotThrow(() -> validator.groupOwnerCheck(1L));
@@ -142,7 +143,7 @@ class MemberValidatorImplTest {
         );
 
         //when
-        doReturn(result).when(groupRepository).findByMasterId(1L);
+        doReturn(result.size()).when(groupRepository).countGroupsByMasterId(1L);
 
         //then
         assertThrows(IllegalStateException.class, () -> validator.groupOwnerCheck(1L));

@@ -1,6 +1,5 @@
-package com.spring.attandance.service;
+package com.spring.attandance.service.validator;
 
-import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.Study;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
@@ -52,9 +51,10 @@ public class MemberValidatorImpl implements MemberValidator {
 
     @Override
     public void groupOwnerCheck(Long id) {
-        List<Group> groupList = groupRepository.findByMasterId(id);
 
-        if (groupList.size() > 0) {
+        int count = groupRepository.countGroupsByMasterId(id);
+
+        if (count > 0) {
             throw new IllegalStateException("소유 중인 스터디 그룹이 존재합니다.");
         }
     }
