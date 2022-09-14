@@ -9,6 +9,7 @@ import com.spring.attandance.domain.enums.PassedStudy;
 import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.query.MemberQueryRepository;
 import com.spring.attandance.repository.query.StudyQueryRepository;
+import com.spring.attandance.service.validator.MemberValidatorImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

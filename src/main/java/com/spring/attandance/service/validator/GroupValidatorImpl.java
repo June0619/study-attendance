@@ -1,4 +1,4 @@
-package com.spring.attandance.service;
+package com.spring.attandance.service.validator;
 
 import com.spring.attandance.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;

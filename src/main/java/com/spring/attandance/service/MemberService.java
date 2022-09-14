@@ -4,6 +4,7 @@ import com.spring.attandance.controller.dto.member.MemberUpdateDTO;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.repository.query.MemberQueryRepository;
 import com.spring.attandance.repository.MemberRepository;
+import com.spring.attandance.service.validator.MemberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,7 @@
 package com.spring.attandance.service;
 
 import com.spring.attandance.repository.GroupRepository;
+import com.spring.attandance.service.validator.GroupValidatorImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
