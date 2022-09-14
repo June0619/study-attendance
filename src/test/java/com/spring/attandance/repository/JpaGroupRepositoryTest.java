@@ -46,7 +46,7 @@ public class JpaGroupRepositoryTest {
     }
 
     @Test
-    @DisplayName("[통합] 스터디 그룹 소유자 아이디로 조회")
+    @DisplayName("[통합] 소유자 아이디 카운트 조회")
     void findByMasterId() {
         // given
         Member testUser = Member.builder()
@@ -58,10 +58,9 @@ public class JpaGroupRepositoryTest {
         em.persist(group);
 
         // when
-        List<Group> result = groupRepository.findByMasterId(testUser.getId());
+        int result = groupRepository.countGroupsByMasterId(testUser.getId());
 
         // then
-        assertThat(result.size()).isEqualTo(1);
-        assertThat(result).extracting("name").containsExactly("TEST_GROUP");
+        assertThat(result).isEqualTo(1);
     }
 }

@@ -126,7 +126,7 @@ class MemberValidatorImplTest {
         List<Group> result = List.of();
 
         //when
-        doReturn(result).when(groupRepository).findByMasterId(1L);
+        doReturn(0).when(groupRepository).countGroupsByMasterId(1L);
 
         //then
         assertDoesNotThrow(() -> validator.groupOwnerCheck(1L));
@@ -142,7 +142,7 @@ class MemberValidatorImplTest {
         );
 
         //when
-        doReturn(result).when(groupRepository).findByMasterId(1L);
+        doReturn(result.size()).when(groupRepository).countGroupsByMasterId(1L);
 
         //then
         assertThrows(IllegalStateException.class, () -> validator.groupOwnerCheck(1L));

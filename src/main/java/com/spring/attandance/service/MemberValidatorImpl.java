@@ -52,9 +52,10 @@ public class MemberValidatorImpl implements MemberValidator {
 
     @Override
     public void groupOwnerCheck(Long id) {
-        List<Group> groupList = groupRepository.findByMasterId(id);
 
-        if (groupList.size() > 0) {
+        int count = groupRepository.countGroupsByMasterId(id);
+
+        if (count > 0) {
             throw new IllegalStateException("소유 중인 스터디 그룹이 존재합니다.");
         }
     }
