@@ -27,9 +27,7 @@ public class GroupService {
     private final GroupMemberRepository groupMemberRepository;
 
     @Transactional
-    public Long create(GroupCreateDTO dto) {
-
-        LoginMemberDTO loginMember = MemberThreadLocal.get();
+    public Long create(GroupCreateDTO dto, LoginMemberDTO loginMember) {
 
         Member loginMemberEntity = memberRepository.findById(loginMember.getId())
                 .orElseThrow(IllegalStateException::new);
