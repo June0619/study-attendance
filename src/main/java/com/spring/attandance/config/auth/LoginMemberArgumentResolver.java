@@ -13,8 +13,8 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         boolean isLoginMemberAnnotation = parameter.getParameterAnnotation(LoginMember.class) != null;
-        boolean isUserClass = LoginMemberDTO.class.equals(parameter.getParameterType());
-        return isLoginMemberAnnotation && isUserClass;
+        boolean isLoginMemberDTO = LoginMemberDTO.class.equals(parameter.getParameterType());
+        return isLoginMemberAnnotation && isLoginMemberDTO;
     }
 
     @Override
