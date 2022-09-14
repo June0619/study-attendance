@@ -49,7 +49,8 @@ class GroupServiceTest {
         memberRepository.save(member);
 
         LoginMemberDTO loginMemberDTO = LoginMemberDTO.of(member);
-        GroupCreateDTO groupCreateDTO = new GroupCreateDTO("test_group");
+        GroupCreateDTO groupCreateDTO = new GroupCreateDTO();
+        groupCreateDTO.setName("test_group");
 
         groupService.create(groupCreateDTO, loginMemberDTO);
 
