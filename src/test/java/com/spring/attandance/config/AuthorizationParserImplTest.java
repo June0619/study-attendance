@@ -1,5 +1,6 @@
 package com.spring.attandance.config;
 
+import com.spring.attandance.config.auth.AuthorizationParserImpl;
 import com.spring.attandance.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuthorizationParserImplTest {
 
     @Autowired EntityManager em;
-    @Autowired AuthorizationParserImpl authorizationParser;
+    @Autowired
+    AuthorizationParserImpl authorizationParser;
 
     @BeforeEach
     void setUp() {
