@@ -32,11 +32,6 @@ class GroupServiceTest {
     @Autowired GroupMemberRepository groupMemberRepository;
     @Autowired EntityManager em;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
     @Test
     void create() {
         //given
@@ -48,7 +43,7 @@ class GroupServiceTest {
 
         memberRepository.save(member);
 
-        LoginMemberDTO loginMemberDTO = LoginMemberDTO.of(member);
+        LoginMemberDTO loginMemberDTO = new LoginMemberDTO(member);
         GroupCreateDTO groupCreateDTO = new GroupCreateDTO();
         groupCreateDTO.setName("test_group");
 
