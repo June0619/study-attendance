@@ -1,6 +1,8 @@
 package com.spring.attandance.controller;
 
+import com.spring.attandance.config.auth.LoginMember;
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
+import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,8 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody GroupCreateDTO dto) {
-        Long createdId = groupService.create(dto);
+    public ResponseEntity<Long> create(@RequestBody GroupCreateDTO dto, @LoginMember LoginMemberDTO loginMember) {
+        Long createdId = groupService.create(dto, loginMember);
         return ResponseEntity.created(URI.create("api/v1/group/" + createdId)).build();
     }
 

@@ -30,7 +30,7 @@ class StudyQueryRepositoryTest {
     @DisplayName("[통합] 스터디 검색 - 시간 기준")
     void searchStudyByPassed() {
         //given
-        Member member = new Member("testMember", null, null);
+        Member member = Member.builder().name("member").build();
         em.persist(member);
 
         //현재 시각-2 ~ 현재 시각-1

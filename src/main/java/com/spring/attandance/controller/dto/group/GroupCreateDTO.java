@@ -1,6 +1,7 @@
 package com.spring.attandance.controller.dto.group;
 
 import com.spring.attandance.domain.Group;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

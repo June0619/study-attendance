@@ -1,4 +1,4 @@
-package com.spring.attandance.config;
+package com.spring.attandance.config.auth;
 
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.domain.Member;
@@ -22,6 +22,6 @@ public class AuthorizationParserImpl implements AuthorizationParser {
 
         //TODO: 인가 (Authorization) 로직 추가
         Optional<Member> loginMember = memberRepository.findMemberByMobile(authorization);
-        return loginMember.map(LoginMemberDTO::of).orElse(new LoginMemberDTO());
+        return loginMember.map(LoginMemberDTO::new).orElse(new LoginMemberDTO());
     }
 }

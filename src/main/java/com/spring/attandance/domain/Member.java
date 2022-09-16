@@ -4,6 +4,8 @@ import com.spring.attandance.controller.dto.member.MemberUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,6 +26,9 @@ public class Member extends BaseEntity {
 
     @Column(nullable = true, name = "EMAIL", length = 50)
     private String email;
+
+    @OneToMany(mappedBy = "member")
+    private List<GroupMember> groupMembers = new ArrayList<>();
 
     /** Entity Update **/
     public void update(String name, String email) {

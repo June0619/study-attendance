@@ -1,4 +1,4 @@
-package com.spring.attandance.config;
+package com.spring.attandance.config.auth;
 
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 

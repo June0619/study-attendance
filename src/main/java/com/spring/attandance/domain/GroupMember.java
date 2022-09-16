@@ -3,6 +3,7 @@ package com.spring.attandance.domain;
 import com.spring.attandance.domain.enums.GroupRole;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GroupMember extends BaseEntity {
 

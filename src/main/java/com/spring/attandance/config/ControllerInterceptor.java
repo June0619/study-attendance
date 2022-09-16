@@ -1,8 +1,8 @@
 package com.spring.attandance.config;
 
+import com.spring.attandance.config.auth.AuthorizationParser;
 import com.spring.attandance.context.MemberThreadLocal;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
-import com.spring.attandance.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 /** 인터셉터 클래스 */
 @Component
