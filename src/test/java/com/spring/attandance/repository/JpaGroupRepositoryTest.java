@@ -35,7 +35,10 @@ public class JpaGroupRepositoryTest {
 
         em.persist(testUser);
 
-        Group group = new Group("TEST_GROUP", testUser);
+        Group group = Group.builder()
+                .name("TEST_GROUP")
+                .master(testUser)
+                .build();
 
         // when
         groupRepository.save(group);
@@ -52,7 +55,11 @@ public class JpaGroupRepositoryTest {
         Member testUser = Member.builder()
                 .name("test_user")
                 .build();
-        Group group = new Group("TEST_GROUP", testUser);
+
+        Group group = Group.builder()
+                .name("TEST_GROUP")
+                .master(testUser)
+                .build();
 
         em.persist(testUser);
         em.persist(group);

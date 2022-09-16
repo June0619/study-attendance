@@ -31,7 +31,11 @@ class MemberQueryRepositoryTest {
     @DisplayName("[통합] QueryRepository.findOne")
     void findOne() {
         //given
-        Member member = new Member("test_user", "01012345678", "test@email.co.kr");
+        Member member = Member.builder()
+                .name("test_user")
+                .mobile("01012345678")
+                .build();
+
         em.persist(member);
 
         //when
@@ -46,10 +50,25 @@ class MemberQueryRepositoryTest {
     @DisplayName("[통합] QueryRepository.searchMemberList")
     void searchMemberList() {
         //given
-        Member memberA = new Member("memberA", "01012345678", "test@email.co.kr");
-        Member memberB = new Member("memberB", "01012345679", "test@email.co.kr");
-        Member memberC = new Member("memberC", "01056781234", "test@email.co.kr");
-        Member memberD = new Member("memberD", "01056781235", "test@email.co.kr");
+        Member memberA = Member.builder()
+                .name("memberA")
+                .mobile("01012345678")
+                .build();
+
+        Member memberB = Member.builder()
+                .name("memberB")
+                .mobile("01012345679")
+                .build();
+
+        Member memberC = Member.builder()
+                .name("memberC")
+                .mobile("01056781234")
+                .build();
+
+        Member memberD = Member.builder()
+                .name("memberD")
+                .mobile("01056781235")
+                .build();
 
         em.persist(memberA);
         em.persist(memberB);
