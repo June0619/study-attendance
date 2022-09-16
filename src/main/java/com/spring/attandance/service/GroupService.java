@@ -1,6 +1,7 @@
 package com.spring.attandance.service;
 
 import com.spring.attandance.context.MemberThreadLocal;
+import com.spring.attandance.controller.dto.group.GroupUpdateDTO;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
 import com.spring.attandance.domain.Group;
@@ -29,12 +30,13 @@ public class GroupService {
     @Transactional
     public Long create(GroupCreateDTO dto, LoginMemberDTO loginMember) {
 
-        Member loginMemberEntity = memberRepository.findById(loginMember.getId())
+        //생성 시 로그인 유저가 스터디 그룹의 소유자가 된다.
+        Member master = memberRepository.findById(loginMember.getId())
                 .orElseThrow(IllegalStateException::new);
 
         Group group = Group.builder()
                 .name(dto.getName())
-                .master(loginMemberEntity)
+                .master(master)
                 .build();
 
         //1. 스터디 그룹 생성 제한 초과 여부 Validation
@@ -45,7 +47,7 @@ public class GroupService {
 
         //3. 스터디 그룹 생성자 등록
         GroupMember groupMember = GroupMember.builder()
-                .member(loginMemberEntity)
+                .member(master)
                 .group(group)
                 .role(MASTER)
                 .build();
@@ -55,7 +57,11 @@ public class GroupService {
         return group.getId();
     }
 
-    public void update() {
+    @Transactional
+    public void update(GroupUpdateDTO dto, LoginMemberDTO loginMemberDTO) {
+
+
+
 
     }
 

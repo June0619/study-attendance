@@ -1,8 +1,6 @@
 package com.spring.attandance.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +11,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "STUDY_GROUP")
+@ToString(of = {"id", "name"})
 public class Group {
 
     @Id @GeneratedValue
