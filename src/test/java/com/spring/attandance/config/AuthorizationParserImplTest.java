@@ -62,6 +62,7 @@ class AuthorizationParserImplTest {
         assertFalse(dto.isGuest());
         assertThat(dto.getMobile()).isEqualTo("01012345678");
         assertThat(dto.getGroups().size()).isEqualTo(1);
+        assertThat(dto.getGroups().get(0).getRole()).isEqualTo(GroupRole.MASTER);
     }
 
     @Test
