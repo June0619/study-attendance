@@ -1,5 +1,6 @@
 package com.spring.attandance.controller;
 
+import com.spring.attandance.config.aop.GroupAuth;
 import com.spring.attandance.config.auth.LoginMember;
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+
+import static com.spring.attandance.domain.enums.GroupRole.MASTER;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +29,14 @@ public class GroupController {
     public ResponseEntity<Long> create(@RequestBody GroupCreateDTO dto, @LoginMember LoginMemberDTO loginMember) {
         Long createdId = groupService.create(dto, loginMember);
         return ResponseEntity.created(URI.create("api/v1/group/" + createdId)).build();
+    }
+
+    @GroupAuth({MASTER})
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody GroupCreateDTO dto, @LoginMember LoginMemberDTO loginMember) {
+//        Long updatedId = groupService.update(id, dto, loginMember);
+
+        return ResponseEntity.ok().build();
     }
 
 }
