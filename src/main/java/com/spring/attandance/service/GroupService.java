@@ -98,8 +98,18 @@ public class GroupService {
         groupMemberRepository.save(groupMember);
     }
 
-    public void resign() {
+    public void resign(Long groupId, LoginMemberDTO loginMemberDTO) {
 
+        //1. 스터디 그룹 존재 여부 Validation
+        Group group = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
+
+        //2. 스터디 그룹 가입 여부 Validation
+        GroupMember groupMember = groupMemberRepository.findByMemberIdAndGroupId(loginMemberDTO.getId(), groupId)
+                .orElseThrow(() -> new IllegalStateException("가입하지 않은 스터디 그룹입니다."));
+
+        //3. 스터디 그룹 탈퇴
+        groupMemberRepository.delete(groupMember);
     }
 
     public void delete() {

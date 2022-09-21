@@ -135,4 +135,66 @@ class GroupServiceTest {
         assertThat(result.getRole()).isEqualTo(GroupRole.WAIT);
     }
 
+    @Test
+    @DisplayName("[통합] 스터디 그룹 등록_실패_이미 등록된 멤버")
+    void enroll_fail_duplicated() {
+        //given
+        Member member = Member.builder()
+                .name("test")
+                .build();
+
+        em.persist(member);
+
+        Group group = Group.builder()
+                .name("test_group")
+                .build();
+
+        em.persist(group);
+
+        LoginMemberDTO loginMemberDTO = new LoginMemberDTO(member);
+
+        //when
+        groupService.enroll(group.getId(), loginMemberDTO);
+
+        //then
+        assertThrows(IllegalStateException.class, () -> groupService.enroll(group.getId(), loginMemberDTO));
+    }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 등록_실패_존재하지 않는 그룹")
+    void enroll_fail_notExistGroup() {
+        //then
+        assertThrows(IllegalStateException.class, () -> groupService.enroll(1L, new LoginMemberDTO()));
+    }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 탈퇴_성공")
+    void resign() {
+        //given
+        Member member = Member.builder()
+                .name("test")
+                .build();
+
+        em.persist(member);
+
+        Group group = Group.builder()
+                .name("test_group")
+                .build();
+
+        em.persist(group);
+
+        LoginMemberDTO loginMemberDTO = new LoginMemberDTO(member);
+        groupService.enroll(group.getId(), loginMemberDTO);
+
+        em.flush();
+        em.clear();
+
+        //when
+        groupService.resign(group.getId(), loginMemberDTO);
+
+        //then
+        Optional<GroupMember> result = groupMemberRepository.findByMemberIdAndGroupId(member.getId(), group.getId());
+        assertThat(result).isEmpty();
+    }
+
 }
