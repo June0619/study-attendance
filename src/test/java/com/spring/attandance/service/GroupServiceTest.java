@@ -1,6 +1,7 @@
 package com.spring.attandance.service;
 
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
+import com.spring.attandance.controller.dto.group.GroupUpdateDTO;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.GroupMember;
@@ -9,6 +10,7 @@ import com.spring.attandance.repository.GroupMemberRepository;
 import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,13 +28,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class GroupServiceTest {
 
-    @Autowired GroupService groupService;
-    @Autowired MemberRepository memberRepository;
-    @Autowired GroupRepository groupRepository;
-    @Autowired GroupMemberRepository groupMemberRepository;
-    @Autowired EntityManager em;
+    @Autowired
+    GroupService groupService;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    GroupRepository groupRepository;
+    @Autowired
+    GroupMemberRepository groupMemberRepository;
+    @Autowired
+    EntityManager em;
 
     @Test
+    @DisplayName("[통합] 스터디 그룹 생성")
     void create() {
         //given
         Member member = Member.builder()
@@ -67,4 +75,33 @@ class GroupServiceTest {
         assertThat(findMember.getGroupMembers()).containsExactly(groupMemberResult.get(0));
     }
 
+    @Test
+    @DisplayName("[통합] 스터디 그룹 수정")
+    void update() {
+        //given
+        Member member = Member.builder()
+                .name("test")
+                .build();
+
+        memberRepository.save(member);
+
+        LoginMemberDTO loginMemberDTO = new LoginMemberDTO(member);
+        GroupCreateDTO groupCreateDTO = new GroupCreateDTO();
+        groupCreateDTO.setName("test_group");
+
+        Long savedGroupId = groupService.create(groupCreateDTO, loginMemberDTO);
+
+        em.flush();
+        em.clear();
+
+        GroupUpdateDTO groupUpdateDTO = new GroupUpdateDTO();
+        groupUpdateDTO.setName("update_group");
+
+        //when
+        Long updatedGroupId = groupService.update(savedGroupId, groupUpdateDTO, loginMemberDTO);
+        Group updatedGroup = em.find(Group.class, updatedGroupId);
+
+        //then
+        assertThat(updatedGroup.getName()).isEqualTo("update_group");
+    }
 }
