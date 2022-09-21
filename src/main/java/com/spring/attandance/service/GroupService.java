@@ -1,6 +1,7 @@
 package com.spring.attandance.service;
 
 import com.spring.attandance.context.MemberThreadLocal;
+import com.spring.attandance.controller.dto.group.GroupUpdateDTO;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
 import com.spring.attandance.domain.Group;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.spring.attandance.domain.enums.GroupRole.MASTER;
+import java.util.Optional;
+
+import static com.spring.attandance.domain.enums.GroupRole.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,14 +30,15 @@ public class GroupService {
     private final GroupMemberRepository groupMemberRepository;
 
     @Transactional
-    public Long create(GroupCreateDTO dto, LoginMemberDTO loginMember) {
+    public Long create(GroupCreateDTO groupCreateDTO, LoginMemberDTO loginMember) {
 
-        Member loginMemberEntity = memberRepository.findById(loginMember.getId())
+        //생성 시 로그인 유저가 스터디 그룹의 소유자가 된다.
+        Member master = memberRepository.findById(loginMember.getId())
                 .orElseThrow(IllegalStateException::new);
 
         Group group = Group.builder()
-                .name(dto.getName())
-                .master(loginMemberEntity)
+                .name(groupCreateDTO.getName())
+                .master(master)
                 .build();
 
         //1. 스터디 그룹 생성 제한 초과 여부 Validation
@@ -45,7 +49,7 @@ public class GroupService {
 
         //3. 스터디 그룹 생성자 등록
         GroupMember groupMember = GroupMember.builder()
-                .member(loginMemberEntity)
+                .member(master)
                 .group(group)
                 .role(MASTER)
                 .build();
@@ -55,20 +59,71 @@ public class GroupService {
         return group.getId();
     }
 
-    public void update() {
+    @Transactional
+    public Long update(Long groupId, GroupUpdateDTO groupUpdateDTO, LoginMemberDTO loginMemberDTO) {
 
+        //1. 스터디 그룹 존재 여부 Validation
+        Group group = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
+
+        //2. 스터디 그룹 수정 권한 Validation
+        validator.isGroupMaster(loginMemberDTO.getId(), groupId);
+
+        //3. 스터디 그룹 수정
+        group.update(groupUpdateDTO.getName());
+
+        return group.getId();
     }
 
-    public void enroll() {
+    public void enroll(Long groupId, LoginMemberDTO loginMemberDTO) {
 
+        //1. 스터디 그룹 존재 여부 Validation
+        Group group = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
+
+        //2. 스터디 그룹 가입 여부 Validation
+        validator.isGroupMember(loginMemberDTO.getId(), groupId);
+
+        //3. 신청자 존재 여부 Validation
+        Member loginMember = memberRepository.findById(loginMemberDTO.getId())
+                .orElseThrow(IllegalStateException::new);
+
+        //4. 스터디 그룹 가입자 등록 (가입 대기 상태로 등록)
+        GroupMember groupMember = GroupMember.builder()
+                .member(loginMember)
+                .group(group)
+                .role(WAIT)
+                .build();
+
+        groupMemberRepository.save(groupMember);
     }
 
-    public void resign() {
+    public void resign(Long groupId, LoginMemberDTO loginMemberDTO) {
 
+        //1. 스터디 그룹 존재 여부 Validation
+        Group group = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
+
+        //2. 스터디 그룹 가입 여부 Validation
+        GroupMember groupMember = groupMemberRepository.findByMemberIdAndGroupId(loginMemberDTO.getId(), groupId)
+                .orElseThrow(() -> new IllegalStateException("가입하지 않은 스터디 그룹입니다."));
+
+        //3. 스터디 그룹 탈퇴
+        groupMemberRepository.delete(groupMember);
     }
 
-    public void delete() {
+    public void delete(Long groupId, LoginMemberDTO loginMemberDTO) {
+            //1. 스터디 그룹 존재 여부 Validation
+            Group group = repository.findById(groupId)
+                    .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
 
+            //2. 스터디 그룹 삭제 권한 Validation
+            validator.isGroupMaster(loginMemberDTO.getId(), groupId);
+
+            //TODO: 기타 삭제 시 필요한 로직 추가
+
+            //3. 스터디 그룹 삭제
+            repository.delete(group);
     }
 
 }

@@ -30,7 +30,7 @@ public class LoginMemberDTO {
 
         for (GroupMember groupMember : member.getGroupMembers()) {
             GroupMemberInnerDTO innerDTO = new GroupMemberInnerDTO();
-            innerDTO.setId(groupMember.getId());
+            innerDTO.setGroupId(groupMember.getGroup().getId());
             innerDTO.setName(groupMember.getGroup().getName());
             innerDTO.setRole(groupMember.getRole());
             groups.add(innerDTO);
@@ -45,7 +45,7 @@ public class LoginMemberDTO {
     @Data
     @ToString
     public static class GroupMemberInnerDTO {
-        private Long id;
+        private Long groupId;
         private String name;
         private GroupRole role;
     }
