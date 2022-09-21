@@ -58,14 +58,24 @@ public class GroupService {
     }
 
     @Transactional
-    public void update(GroupUpdateDTO dto, LoginMemberDTO loginMemberDTO) {
+    public Long update(Long groupId, GroupUpdateDTO dto, LoginMemberDTO loginMemberDTO) {
 
+        //1. 스터디 그룹 존재 여부 Validation
+        Group group = repository.findById(groupId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
 
+        //2. 스터디 그룹 수정 권한 Validation
+        validator.isGroupMaster(loginMemberDTO.getId(), groupId);
 
+        //3. 스터디 그룹 수정
+        group.update(dto.getName());
 
+        return group.getId();
     }
 
     public void enroll() {
+
+
 
     }
 

@@ -3,6 +3,7 @@ package com.spring.attandance.controller;
 import com.spring.attandance.config.aop.GroupAuth;
 import com.spring.attandance.config.auth.LoginMember;
 import com.spring.attandance.controller.dto.group.GroupCreateDTO;
+import com.spring.attandance.controller.dto.group.GroupUpdateDTO;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.service.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,11 @@ public class GroupController {
         return ResponseEntity.created(URI.create("api/v1/group/" + createdId)).build();
     }
 
-    @GroupAuth({MASTER})
+//    @GroupAuth({MASTER})
     @PutMapping("/{id}")
-    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody GroupCreateDTO dto, @LoginMember LoginMemberDTO loginMember) {
-//        Long updatedId = groupService.update(id, dto, loginMember);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody GroupUpdateDTO dto, @LoginMember LoginMemberDTO loginMember) {
+        Long updatedId = groupService.update(id, dto, loginMember);
+        return ResponseEntity.accepted().body(updatedId);
     }
 
 }

@@ -31,6 +31,10 @@ public class Group {
         this.master = master;
     }
 
+    public void update(String name) {
+        this.name = name;
+    }
+
     public void changeMaster(Member master) {
         this.master = master;
     }
