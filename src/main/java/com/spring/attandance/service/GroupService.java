@@ -112,8 +112,18 @@ public class GroupService {
         groupMemberRepository.delete(groupMember);
     }
 
-    public void delete() {
+    public void delete(Long groupId, LoginMemberDTO loginMemberDTO) {
+            //1. 스터디 그룹 존재 여부 Validation
+            Group group = repository.findById(groupId)
+                    .orElseThrow(() -> new IllegalStateException("존재하지 않는 스터디 그룹입니다."));
 
+            //2. 스터디 그룹 삭제 권한 Validation
+            validator.isGroupMaster(loginMemberDTO.getId(), groupId);
+
+            //TODO: 기타 삭제 시 필요한 로직 추가
+
+            //3. 스터디 그룹 삭제
+            repository.delete(group);
     }
 
 }
