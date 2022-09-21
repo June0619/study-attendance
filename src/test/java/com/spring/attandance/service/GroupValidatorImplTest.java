@@ -40,7 +40,7 @@ class GroupValidatorImplTest {
         Long memberId = 1L;
 
         //when
-        doReturn(2).when(repository).countGroupsByMasterId(memberId);
+        doReturn(2L).when(groupMemberRepository).countGroupsByMemberId(memberId);
 
         //then
         assertDoesNotThrow(() -> validator.exceedLimitGroupCount(memberId));
@@ -53,7 +53,7 @@ class GroupValidatorImplTest {
         Long memberId = 1L;
 
         //when
-        doReturn(3).when(repository).countGroupsByMasterId(memberId);
+        doReturn(3L).when(groupMemberRepository).countGroupsByMemberId(memberId);
 
         //then
         assertThrows(IllegalStateException.class, () -> validator.exceedLimitGroupCount(memberId));
