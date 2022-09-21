@@ -1,10 +1,13 @@
 package com.spring.attandance.service.validator;
 
+import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.enums.GroupRole;
 import com.spring.attandance.repository.GroupMemberRepository;
 import com.spring.attandance.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -41,4 +44,18 @@ public class GroupValidatorImpl implements GroupValidator {
         }
     }
 
+    /***
+     * 스터디 그룹 가입 여부 Validation
+     * @param memberId
+     * @param groupId
+     */
+    @Override
+    public void isGroupMember(Long memberId, Long groupId) {
+
+        Optional<GroupMember> groupMemberOptional = groupMemberRepository.findByMemberIdAndGroupId(memberId, groupId);
+
+        if (groupMemberOptional.isPresent()) {
+            throw new IllegalStateException("이미 가입한 스터디 그룹입니다.");
+        }
+    }
 }
