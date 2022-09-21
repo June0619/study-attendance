@@ -39,4 +39,10 @@ public class GroupController {
         return ResponseEntity.accepted().body(updatedId);
     }
 
+    @PostMapping("/{id}/enroll")
+    public ResponseEntity<Long> enroll(@PathVariable Long id, @LoginMember LoginMemberDTO loginMember) {
+        groupService.enroll(id, loginMember);
+        return ResponseEntity.ok(id);
+    }
+
 }

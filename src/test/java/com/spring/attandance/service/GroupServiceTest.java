@@ -6,6 +6,7 @@ import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.Member;
+import com.spring.attandance.domain.enums.GroupRole;
 import com.spring.attandance.repository.GroupMemberRepository;
 import com.spring.attandance.repository.GroupRepository;
 import com.spring.attandance.repository.MemberRepository;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -104,4 +106,33 @@ class GroupServiceTest {
         //then
         assertThat(updatedGroup.getName()).isEqualTo("update_group");
     }
+
+    @Test
+    @DisplayName("[통합] 스터디 그룹 등록_성공")
+    void enroll() {
+        //given
+        Member member = Member.builder()
+                .name("test")
+                .build();
+
+        em.persist(member);
+
+        Group group = Group.builder()
+                .name("test_group")
+                .build();
+
+        em.persist(group);
+
+        LoginMemberDTO loginMemberDTO = new LoginMemberDTO(member);
+
+        //when
+        groupService.enroll(group.getId(), loginMemberDTO);
+        GroupMember result = groupMemberRepository.findByMemberIdAndGroupId(member.getId(), group.getId()).get();
+
+        //then
+        assertThat(result.getMember()).isEqualTo(member);
+        assertThat(result.getGroup()).isEqualTo(group);
+        assertThat(result.getRole()).isEqualTo(GroupRole.WAIT);
+    }
+
 }

@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMember, Long> {
 
+    long countGroupsByMemberId(Long memberId);
     Optional<GroupMember> findByMemberIdAndGroupId(Long memberId, Long groupId);
 }
