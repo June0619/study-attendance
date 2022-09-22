@@ -32,33 +32,55 @@ public class Init {
 
         @Transactional
         public void init() {
-            for (int i = 1; i <= 20; i++) {
-                Member member = Member.builder()
-                        .name("test" + i)
-                        .mobile("010123412" + String.format("%02d", i))
-                        .email("test" + i + "@test.com")
+
+            for (int i = 0; i < 3; i++) {
+
+                Group group = Group.builder()
+                        .name("group_" + (i+1))
                         .build();
-                em.persist(member);
 
-                long groupId = 0;
+                for (int j = 1; j <= 5; j++) {
 
-                if (i % 7 == 1) {
-                    Group group = Group.builder()
-                            .name("group" + (i/7 + 1))
-                            .master(member)
-                            .build();
-                    em.persist(group);
+                    int count = i * 5 + j;
 
-                    GroupMember groupMember = GroupMember.builder()
-                            .group(group)
-                            .member(member)
-                            .role(GroupRole.MASTER)
+                    Member member = Member.builder()
+                            .name("test" + count)
+                            .mobile("010123412" + String.format("%02d", count))
+                            .email("test" + count + "@test.com")
                             .build();
 
-                    em.persist(groupMember);
+                    em.persist(member);
+
+                    if(j % 5 == 1) {
+                        group.changeMaster(member);
+                        em.persist(group);
+
+                        GroupMember groupMember = GroupMember.builder()
+                                .group(group)
+                                .member(member)
+                                .role(GroupRole.MASTER)
+                                .build();
+
+                        em.persist(groupMember);
+                    } else if(j % 5 == 2) {
+                        GroupMember groupMember = GroupMember.builder()
+                                .group(group)
+                                .member(member)
+                                .role(GroupRole.ADMIN)
+                                .build();
+
+                        em.persist(groupMember);
+                    } else {
+                        GroupMember groupMember = GroupMember.builder()
+                                .group(group)
+                                .member(member)
+                                .role(GroupRole.MEMBER)
+                                .build();
+
+                        em.persist(groupMember);
+                    }
                 }
             }
         }
     }
-
 }

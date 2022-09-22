@@ -1,6 +1,7 @@
 package com.spring.attandance.controller;
 
 import com.spring.attandance.controller.dto.member.MemberCreateDTO;
+import com.spring.attandance.controller.dto.member.MemberResponseDTO;
 import com.spring.attandance.controller.dto.member.MemberUpdateDTO;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
@@ -23,7 +24,7 @@ public class MemberController {
     private final MemberQueryRepository memberQueryRepository;
 
     @GetMapping
-    public Page<Member> list(MemberSearchCondition condition, Pageable pageable) {
+    public Page<MemberResponseDTO> list(MemberSearchCondition condition, Pageable pageable) {
         return memberQueryRepository.searchMemberList(condition, pageable);
     }
 
