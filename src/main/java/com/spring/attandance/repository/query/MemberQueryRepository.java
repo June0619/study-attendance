@@ -5,7 +5,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.spring.attandance.controller.dto.member.MemberResponseDTO;
 import com.spring.attandance.domain.Member;
+import com.spring.attandance.domain.QGroupMember;
 import com.spring.attandance.domain.QMember;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static com.spring.attandance.domain.QGroupMember.groupMember;
 import static com.spring.attandance.domain.QMember.member;
 
 @Repository
@@ -37,10 +41,11 @@ public class MemberQueryRepository {
                 .fetchOne());
     }
 
-    public Page<Member> searchMemberList(MemberSearchCondition condition, Pageable pageable) {
+    public Page<MemberResponseDTO> searchMemberList(MemberSearchCondition condition, Pageable pageable) {
 
-        List<Member> content = queryFactory
+        List<Member> memberList = queryFactory
                 .selectFrom(member)
+                .leftJoin(member.groupMembers, groupMember).fetchJoin()
                 .where(
                         nameEq(condition.getName()),
                         mobileEq(condition.getMobile()),
@@ -49,6 +54,10 @@ public class MemberQueryRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
+        List<MemberResponseDTO> content = memberList.stream()
+                .map(MemberResponseDTO::new)
+                .collect(Collectors.toList());
 
         JPAQuery<Long> countQuery = queryFactory
                 .select(Wildcard.count)

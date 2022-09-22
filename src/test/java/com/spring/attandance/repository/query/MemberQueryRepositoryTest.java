@@ -1,5 +1,8 @@
 package com.spring.attandance.repository.query;
 
+import com.spring.attandance.controller.dto.member.MemberResponseDTO;
+import com.spring.attandance.domain.Group;
+import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.Member;
 import com.spring.attandance.domain.cond.MemberSearchCondition;
 import com.spring.attandance.repository.query.MemberQueryRepository;
@@ -75,15 +78,30 @@ class MemberQueryRepositoryTest {
         em.persist(memberC);
         em.persist(memberD);
 
+        Group group = Group.builder()
+                .name("groupA")
+                .build();
+
+        GroupMember groupMember = GroupMember.builder()
+                .group(group)
+                .member(memberA)
+                .build();
+
+        em.persist(group);
+        em.persist(groupMember);
+
+        em.flush();
+        em.clear();
+
         //when
         MemberSearchCondition condition = new MemberSearchCondition(null, null, null);
-        Page<Member> result1 = repository.searchMemberList(condition, PageRequest.of(0, 2));
+        Page<MemberResponseDTO> result1 = repository.searchMemberList(condition, PageRequest.of(0, 2));
         condition.setName("memberB");
-        Page<Member> result2 = repository.searchMemberList(condition, PageRequest.of(0, 2));
+        Page<MemberResponseDTO> result2 = repository.searchMemberList(condition, PageRequest.of(0, 2));
 
         //then
         assertThat(result1.getTotalPages()).isEqualTo(2);
-        assertThat(result2.getContent()).containsExactly(memberB);
+        assertThat(result2.getContent()).containsExactly(new MemberResponseDTO(memberB));
     }
 
 }
