@@ -75,6 +75,7 @@ public class GroupService {
         return group.getId();
     }
 
+    @Transactional
     public void enroll(Long groupId, LoginMemberDTO loginMemberDTO) {
 
         //1. 스터디 그룹 존재 여부 Validation
