@@ -1,5 +1,6 @@
 package com.spring.attandance.domain;
 
+import com.spring.attandance.domain.enums.StudyStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,11 +25,14 @@ public class Study {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    private StudyStatus status;
+
     @Builder
     public Study(Member owner, LocalDateTime startTime, LocalDateTime endTime) {
         this.owner = owner;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.status = StudyStatus.OPEN;
     }
 
 }
