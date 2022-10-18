@@ -1,7 +1,9 @@
 package com.spring.attandance.domain;
 
+import com.spring.attandance.domain.enums.StudyStatus;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Study {
 
@@ -22,11 +25,15 @@ public class Study {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @Enumerated(EnumType.STRING)
+    private StudyStatus status;
+
     @Builder
     public Study(Member owner, LocalDateTime startTime, LocalDateTime endTime) {
         this.owner = owner;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.status = StudyStatus.OPEN;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.spring.attandance.service;
+package com.spring.attandance.service.validator;
 
 import com.spring.attandance.domain.Group;
 import com.spring.attandance.domain.GroupMember;
