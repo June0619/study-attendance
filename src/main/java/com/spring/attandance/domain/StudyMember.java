@@ -1,6 +1,10 @@
 package com.spring.attandance.domain;
 
 import com.spring.attandance.domain.enums.CancelYN;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +13,8 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StudyMember {
 
     @Id @GeneratedValue
@@ -27,5 +33,13 @@ public class StudyMember {
     private CancelYN cancelYN;
 
     private LocalDateTime enrollDateTime;
+
+    @Builder
+    public StudyMember(Member joinMember, Study study) {
+        this.joinMember = joinMember;
+        this.study = study;
+        this.cancelYN = CancelYN.NO;
+        this.enrollDateTime = LocalDateTime.now();
+    }
 
 }

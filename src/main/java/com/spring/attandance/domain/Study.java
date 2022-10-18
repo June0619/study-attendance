@@ -2,6 +2,7 @@ package com.spring.attandance.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Study {
 
