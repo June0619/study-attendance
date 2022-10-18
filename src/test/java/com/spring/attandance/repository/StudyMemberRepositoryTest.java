@@ -44,7 +44,7 @@ class StudyMemberRepositoryTest {
         em.persist(studyMember);
 
         //when
-        StudyMember findStudyMember = studyMemberRepository.findByJoinMemberId(m1.getId()).get();
+        StudyMember findStudyMember = studyMemberRepository.findByJoinMemberId(m1.getId()).get(0);
 
         //then
         assertThat(findStudyMember).isNotNull();

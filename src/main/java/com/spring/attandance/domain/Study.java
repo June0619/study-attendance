@@ -25,6 +25,7 @@ public class Study {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @Enumerated(EnumType.STRING)
     private StudyStatus status;
 
     @Builder
