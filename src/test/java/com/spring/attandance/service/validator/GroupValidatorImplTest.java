@@ -124,4 +124,35 @@ class GroupValidatorImplTest {
         assertThrows(IllegalStateException.class, () -> validator.isGroupMaster(1L, 1L));
         assertThrows(IllegalStateException.class, () -> validator.isGroupMaster(2L, 2L));
     }
+
+    @Test
+    @DisplayName("[단위] 스터디 그룹 가입여부 테스트 - 성공")
+    void isGroupMember() {
+        //when
+        doReturn(Optional.empty()).when(groupMemberRepository).findByMemberIdAndGroupId(1L, 1L);
+
+        //then
+        assertDoesNotThrow(() -> validator.isGroupMember(1L, 1L));
+    }
+
+    @Test
+    @DisplayName("[단위] 스터디 그룹 가입여부 테스트 - 실패")
+    void isGroupMember_fail() {
+        //given
+        Member member = Member.builder().build();
+        Group group = Group.builder().build();
+
+        GroupMember groupMember = GroupMember.builder()
+                .member(member)
+                .group(group)
+                .build();
+
+        Optional<GroupMember> result = Optional.of(groupMember);
+
+        //when
+        doReturn(result).when(groupMemberRepository).findByMemberIdAndGroupId(1L, 1L);
+
+        //then
+        assertThrows(IllegalStateException.class, () -> validator.isGroupMember(1L, 1L));
+    }
 }
