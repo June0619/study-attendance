@@ -1,5 +1,6 @@
 package com.spring.attandance.service.validator;
 
+import com.spring.attandance.domain.GroupMember;
 import com.spring.attandance.domain.Study;
 import com.spring.attandance.domain.StudyMember;
 import com.spring.attandance.domain.enums.GroupRole;
@@ -16,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.spring.attandance.domain.enums.GroupRole.ADMIN;
+import static com.spring.attandance.domain.enums.GroupRole.MASTER;
+
 @Component
 @RequiredArgsConstructor
 public class StudyValidatorImpl implements StudyValidator {
@@ -28,7 +32,7 @@ public class StudyValidatorImpl implements StudyValidator {
     public void isStudyGroupAdmin(Long memberId, Long studyId) {
         //Study Group Admin Check
         groupMemberRepository.findByMemberIdAndGroupId(memberId, studyId)
-                .filter(groupMember -> groupMember.getRole().equals(GroupRole.ADMIN))
+                .filter(groupMember -> groupMember.getRole().equals(ADMIN) || groupMember.getRole().equals(MASTER))
                 .orElseThrow(() -> new IllegalStateException("스터디 그룹 관리자가 아닙니다."));
     }
 
@@ -43,10 +47,13 @@ public class StudyValidatorImpl implements StudyValidator {
     @Override
     public void isStudyGroupMember(Long memberId, Long studyId) {
         //Study Group Member Check
-        groupMemberRepository.findByMemberIdAndGroupId(memberId, studyId)
-                //가입 대기중이 아닌 회원만 검색
-                .filter(groupMember -> !groupMember.getRole().equals(GroupRole.WAIT))
+        Optional<GroupMember> groupMemberOptional = groupMemberRepository.findByMemberIdAndGroupId(memberId, studyId);
+        GroupMember groupMember = groupMemberOptional
                 .orElseThrow(() -> new IllegalStateException("스터디 그룹에 가입되어 있지 않습니다."));
+
+        if (groupMember.getRole().equals(GroupRole.WAIT)) {
+            throw new IllegalStateException("가입 승인을 대기중인 회원 입니다.");
+        }
     }
 
     @Override
