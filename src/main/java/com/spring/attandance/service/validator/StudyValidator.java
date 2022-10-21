@@ -9,4 +9,11 @@ public interface StudyValidator {
     void isStudyGroupMember(Long memberId, Long studyId);
     void periodCheck(Long memberId, Study study);
 
+    default void hasStudyUpdatePermission(Long memberId, Long studyId, Long groupId) {
+        try {
+            isStudyOwner(memberId, studyId);
+        } catch (IllegalStateException e) {
+            isStudyGroupAdmin(memberId, groupId);
+        }
+    }
 }

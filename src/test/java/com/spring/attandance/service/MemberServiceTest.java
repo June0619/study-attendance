@@ -146,7 +146,11 @@ class MemberServiceTest {
                 .mobile("01012345679")
                 .build();
 
-        Study study = new Study(memberB, LocalDateTime.now().plusHours(1), LocalDateTime.now().plusHours(2));
+        Study study = Study.builder()
+                .startTime(LocalDateTime.now().plusHours(1))
+                .endTime(LocalDateTime.now().plusHours(2))
+                .owner(memberB)
+                .build();
 
         //when
         Long memberAId = memberService.join(memberA);

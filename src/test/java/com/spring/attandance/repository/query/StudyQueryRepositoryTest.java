@@ -34,11 +34,25 @@ class StudyQueryRepositoryTest {
         em.persist(member);
 
         //현재 시각-2 ~ 현재 시각-1
-        Study passedStudy = new Study(member, LocalDateTime.now().minusHours(2), LocalDateTime.now().minusHours(1));
+        Study passedStudy = Study.builder()
+                .startTime(LocalDateTime.now().minusHours(2))
+                .endTime(LocalDateTime.now().minusHours(1))
+                .owner(member)
+                .build();
+
         //현재 시각-1 ~ 현재 시각+1
-        Study ongoingStudy = new Study(member, LocalDateTime.now().minusHours(1), LocalDateTime.now().plusHours(1));
+        Study ongoingStudy = Study.builder()
+                .startTime(LocalDateTime.now().minusHours(1))
+                .endTime(LocalDateTime.now().plusHours(1))
+                .owner(member)
+                .build();
+
         //현재 시각+1 ~ 현재 시각+2
-        Study futureStudy = new Study(member, LocalDateTime.now().plusHours(1), LocalDateTime.now().plusHours(2));
+        Study futureStudy = Study.builder()
+                .startTime(LocalDateTime.now().plusHours(1))
+                .endTime(LocalDateTime.now().plusHours(2))
+                .owner(member)
+                .build();
 
         em.persist(passedStudy);
         em.persist(ongoingStudy);
