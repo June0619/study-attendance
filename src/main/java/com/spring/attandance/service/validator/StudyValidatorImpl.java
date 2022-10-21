@@ -29,9 +29,9 @@ public class StudyValidatorImpl implements StudyValidator {
     private final StudyRepository studyRepository;
 
     @Override
-    public void isStudyGroupAdmin(Long memberId, Long studyId) {
+    public void isStudyGroupAdmin(Long memberId, Long groupId) {
         //Study Group Admin Check
-        groupMemberRepository.findByMemberIdAndGroupId(memberId, studyId)
+        groupMemberRepository.findByMemberIdAndGroupId(memberId, groupId)
                 .filter(groupMember -> groupMember.getRole().equals(ADMIN) || groupMember.getRole().equals(MASTER))
                 .orElseThrow(() -> new IllegalStateException("스터디 그룹 관리자가 아닙니다."));
     }
@@ -45,9 +45,9 @@ public class StudyValidatorImpl implements StudyValidator {
     }
 
     @Override
-    public void isStudyGroupMember(Long memberId, Long studyId) {
+    public void isStudyGroupMember(Long memberId, Long groupId) {
         //Study Group Member Check
-        Optional<GroupMember> groupMemberOptional = groupMemberRepository.findByMemberIdAndGroupId(memberId, studyId);
+        Optional<GroupMember> groupMemberOptional = groupMemberRepository.findByMemberIdAndGroupId(memberId, groupId);
         GroupMember groupMember = groupMemberOptional
                 .orElseThrow(() -> new IllegalStateException("스터디 그룹에 가입되어 있지 않습니다."));
 
