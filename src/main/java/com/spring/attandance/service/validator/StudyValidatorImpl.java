@@ -57,9 +57,7 @@ public class StudyValidatorImpl implements StudyValidator {
     }
 
     @Override
-    public void periodCheck(Long memberId, Long studyId) {
-        Study study = studyRepository.findById(studyId).orElseThrow(() -> new IllegalStateException("스터디가 존재하지 않습니다."));
-
+    public void periodCheck(Long memberId, Study study) {
         //Ongoing Study Check
         List<Study> openStudyList = studyMemberRepository.findByJoinMemberId(memberId).stream()
                 .map(StudyMember::getStudy)

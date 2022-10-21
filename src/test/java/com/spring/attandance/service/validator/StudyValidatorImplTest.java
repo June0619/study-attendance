@@ -174,14 +174,12 @@ class StudyValidatorImplTest {
                 .build();
 
         //when
-        //스터디 조회 Mocking
-        doReturn(Optional.of(s2)).when(studyRepository).findById(2L);
         //스터디-회원 관계형 테이블 Mocking
         doReturn(List.of(studyMember)).when(studyMemberRepository).findByJoinMemberId(1L);
 
         //then
         //참여하려는 스터디와 참여중인 스터디가 겹치지 않으므로 예외가 발생하지 않는다.
-        assertDoesNotThrow(() -> validator.periodCheck(1L, 2L));
+        assertDoesNotThrow(() -> validator.periodCheck(1L, s2));
     }
 
     @Test
@@ -205,15 +203,12 @@ class StudyValidatorImplTest {
                 .build();
 
         //when
-        //스터디 조회 Mocking
-        doReturn(Optional.of(s2)).when(studyRepository).findById(2L);
         //스터디-회원 관계형 테이블 Mocking
         doReturn(List.of(studyMember)).when(studyMemberRepository).findByJoinMemberId(1L);
 
-
         //then
         //참여하려는 스터디와 참여중인 스터디가 겹치므로 예외가 발생한다.
-        assertThrows(IllegalStateException.class, () -> validator.periodCheck(1L, 2L));
+        assertThrows(IllegalStateException.class, () -> validator.periodCheck(1L, s2));
     }
 
 }

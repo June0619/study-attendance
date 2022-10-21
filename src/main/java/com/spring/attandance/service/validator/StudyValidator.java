@@ -7,6 +7,6 @@ public interface StudyValidator {
     void isStudyGroupAdmin(Long memberId, Long studyId);
     void isStudyOwner(Long memberId, Long studyId);
     void isStudyGroupMember(Long memberId, Long studyId);
-    void periodCheck(Long memberId, Long studyId);
+    void periodCheck(Long memberId, Study study);
 
 }
