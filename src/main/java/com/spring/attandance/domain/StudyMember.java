@@ -39,7 +39,11 @@ public class StudyMember {
         this.joinMember = joinMember;
         this.study = study;
         this.cancelYN = CancelYN.NO;
-        this.enrollDateTime = LocalDateTime.now();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        enrollDateTime = LocalDateTime.now();
     }
 
 }

@@ -3,10 +3,7 @@ package com.spring.attandance.service;
 import com.spring.attandance.controller.dto.member.LoginMemberDTO;
 import com.spring.attandance.controller.dto.study.StudyCreateDTO;
 import com.spring.attandance.controller.dto.study.StudyUpdateDTO;
-import com.spring.attandance.domain.Group;
-import com.spring.attandance.domain.GroupMember;
-import com.spring.attandance.domain.Member;
-import com.spring.attandance.domain.Study;
+import com.spring.attandance.domain.*;
 import com.spring.attandance.domain.enums.GroupRole;
 import com.spring.attandance.domain.enums.StudyStatus;
 import com.spring.attandance.repository.StudyRepository;
@@ -72,7 +69,7 @@ class StudyServiceTest {
         assertThat(findStudy.getGroup()).isEqualTo(group);
         assertThat(findStudy.getStartTime()).isEqualTo(studyCreateDTO.getStartTime());
         assertThat(findStudy.getEndTime()).isEqualTo(studyCreateDTO.getEndTime());
-        assertThat(findStudy.getStatus()).isEqualTo(StudyStatus.OPEN);
+        assertThat(findStudy.getStatus()).isEqualTo(StudyStatus.WAIT);
     }
 
     @Test
@@ -121,11 +118,11 @@ class StudyServiceTest {
         //then
         assertThat(findStudy.getStartTime()).isEqualTo(studyUpdateDTO.getStartTime());
         assertThat(findStudy.getEndTime()).isEqualTo(studyUpdateDTO.getEndTime());
-        assertThat(findStudy.getStatus()).isEqualTo(StudyStatus.OPEN);
+        assertThat(findStudy.getStatus()).isEqualTo(StudyStatus.WAIT);
     }
 
     @Test
-    @DisplayName("[통합] 스터디 수정 - 실패 - 스터디 생성자가 아닌 경우")
+    @DisplayName("[통합] 스터디 수정 - 실패 - 스터디 관리 권한이 없는 경우")
     void update_fail1() {
         //given
         Member member = Member.builder()
@@ -179,5 +176,46 @@ class StudyServiceTest {
         //when
         assertThrows(IllegalStateException.class, () -> studyService.update(studyUpdateDTO, loginUser));
     }
+
+    @Test
+    @DisplayName("[통합] 스터디 삭제")
+    void delete() {
+        //given
+        Member member = Member.builder()
+                .name("Member")
+                .mobile("01012345679")
+                .build();
+
+        Group group = Group.builder()
+                .name("test_group")
+                .build();
+
+        GroupMember groupMember = GroupMember.builder()
+                .group(group)
+                .member(member)
+                .role(GroupRole.MEMBER)
+                .build();
+
+        Study study = Study.builder()
+                .group(group)
+                .owner(member)
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now().plusHours(1))
+                .build();
+
+        em.persist(member);
+        em.persist(group);
+        em.persist(groupMember);
+        em.persist(study);
+
+        LoginMemberDTO loginUser = new LoginMemberDTO(member);
+
+        //when
+        studyService.delete(study.getId(), loginUser);
+
+        //then
+        assertThat(em.find(Study.class, study.getId())).isNull();
+    }
+
 
 }

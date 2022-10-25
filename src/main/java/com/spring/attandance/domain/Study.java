@@ -41,7 +41,7 @@ public class Study {
         study.group = group;
         study.startTime = startTime;
         study.endTime = endTime;
-        study.status = StudyStatus.OPEN;
+        study.status = StudyStatus.WAIT;
         return study;
     }
 
@@ -55,13 +55,21 @@ public class Study {
         this.endTime = endTime;
     }
 
+    public void openStudy() {
+        this.status = StudyStatus.OPEN;
+    }
+
+    public void closeStudy() {
+        this.status = StudyStatus.CLOSE;
+    }
+
     @Builder
     public Study(Member owner, Group group, LocalDateTime startTime, LocalDateTime endTime) {
         this.owner = owner;
         this.group = group;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = StudyStatus.OPEN;
+        this.status = StudyStatus.WAIT;
     }
 
 }

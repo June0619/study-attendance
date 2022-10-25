@@ -61,7 +61,7 @@ public class StudyValidatorImpl implements StudyValidator {
         //Ongoing Study Check
         List<Study> openStudyList = studyMemberRepository.findByJoinMemberId(memberId).stream()
                 .map(StudyMember::getStudy)
-                .filter(s -> s.getStatus().equals(StudyStatus.OPEN))
+                .filter(s -> !s.getStatus().equals(StudyStatus.CLOSE))
                 .collect(Collectors.toList());
 
         openStudyList.stream()
